@@ -1,87 +1,116 @@
 /**
  * Created by Rex on 2018/3/2.
  */
-;(function(){
 
-    $("form").bootstrapValidator({
-        //ÒªÇó£ºÓÃ»§Ãû ²»ÄÜÎª¿Õ  2-6Î»
-        //     ÃÜÂë ²»ÄÜÎª¿Õ  ÃÜÂëµÄ³¤¶ÈÔÚ6-12Î»
-        fields: {
-            //¶ÔÓ¦ÁËformÖĞµÄnameÊôĞÔ
-            username:{
-                //¸øusernameÅäÖÃĞ£Ñé¹æÔò
-                validators:{
-                    //·Ç¿ÕµÄ¹æÔò
-                    notEmpty: {
-                        message: 'ÓÃ»§Ãû²»ÄÜÎª¿Õ'
-                    },
-                    stringLength:{
-                        min:2,
-                        max:6,
-                        message:'³¤¶ÈÓ¦¸ÃÔÚ2-6Î»'
-                    },
-                    //×¨ÃÅÓÃÀ´ÌáÊ¾ĞÅÏ¢
-                    callback: {
-                        message:'ÓÃ»§Ãû´íÎó'
-                    }
+//1. ç­‰å¾…é¡µé¢åŠ è½½å®Œæˆ
+//2. é˜²æ­¢å…¨å±€å˜é‡æ±¡æŸ“
+$(function () {
 
-                }
 
-            },
+  //1. æ ¡éªŒè¡¨å•
+  $("form").bootstrapValidator({
 
-            password: {
-                validators:{
-                    //·Ç¿ÕµÄ¹æÔò
-                    notEmpty: {
-                        message: 'ÃÜÂë²»ÄÜÎª¿Õ'
-                    },
-                    stringLength:{
-                        min:6,
-                        max:12,
-                        message:'ÃÜÂë³¤¶ÈÓ¦¸ÃÊÇ6-12Î»'
-                    },
-                    callback: {
-                        message:'ÃÜÂë´íÎó'
-                    }
 
-                }
-            }
-        },
-        //ÅäÖÃĞ¡Í¼±ê, ³É¹¦ Ê§°Ü  Ğ£ÑéÖĞ
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+    //è¦æ±‚ï¼šç”¨æˆ·åä¸èƒ½ä¸ºç©º  2-6
+    //     å¯†ç ä¸èƒ½ä¸ºç©º  å¯†ç çš„é•¿åº¦åœ¨6-12ä¸º
+    //é…ç½®æ ¡éªŒçš„è§„åˆ™
+    fields: {
+      //å¯¹åº”äº†formä¸­çš„nameå±æ€§
+      username:{
+        //ç»™usernameé…ç½®æ ¡éªŒè§„åˆ™
+        validators:{
+          //éç©ºçš„è§„åˆ™
+          notEmpty: {
+            message: 'ç”¨æˆ·åä¸èƒ½ä¸ºç©º'
+          },
+          stringLength:{
+            min:2,
+            max:6,
+            message:'é•¿åº¦åº”è¯¥åœ¨2-6ä½'
+          },
+          //ä¸“é—¨ç”¨æ¥æç¤ºä¿¡æ¯
+          callback: {
+            message:'ç”¨æˆ·åé”™è¯¯'
+          }
+
         }
-    })
-    //±íµ¥ÑéÖ¤³É¹¦,×èÖ¹±íµ¥Ä¬ÈÏÌá½»·½Ê½,Ê¹ÓÃajaxÈÏÖ¤Ìá½»
-    $('form').on("success.form.bv",function(e){
-        e.preventDefault();
 
-        //·¢ËÍajaxÇëÇóµÇÂ¼
-        $.ajax({
-            type:'post',
-            url:'/employee/employeeLogin',
-            data:$('form').serialize(),
-            dataType:'json',
-            success:function(info){
-                //console.log(info);
-                if(info.error==1000){
-                    $('form').data('bootstrapValidator').updateStatus('username','INVALID','callback')
-                }
-                if(info.error === 1001) {
-                    $("form").data("bootstrapValidator").updateStatus("password", "INVALID", "callback");
-                }
-                if(info.success) {
-                    location.href = "index.html";
-                }
-            }
-        })
+      },
+
+      password: {
+        validators:{
+          //éç©ºçš„è§„åˆ™
+          notEmpty: {
+            message: 'å¯†ç ä¸èƒ½ä¸ºç©º'
+          },
+          stringLength:{
+            min:6,
+            max:12,
+            message:'å¯†ç é•¿åº¦åº”è¯¥æ˜¯6-12ä½'
+          },
+          callback: {
+            message:'å¯†ç é”™è¯¯'
+          }
+
+        }
+      }
+    },
+
+    //é…ç½®å°å›¾æ ‡, æˆåŠŸ å¤±è´¥  æ ¡éªŒä¸­
+    feedbackIcons: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+
+  });
+
+
+  //2. ç»™è¡¨å•æ³¨å†Œä¸€ä¸ªæ ¡éªŒæˆåŠŸçš„äº‹ä»¶ï¼Œ æˆåŠŸçš„æ—¶å€™é˜»æ­¢è¡¨å•çš„é»˜è®¤æäº¤ï¼Œä½¿ç”¨ajaxè¿›è¡Œã€‚
+  $("form").on("success.form.bv", function (e) {
+    //é˜»æ­¢æµè§ˆå™¨é»˜è®¤è¡Œä¸º
+    e.preventDefault();
+
+
+    //å‘é€ajaxè¯·æ±‚ç™»å½•
+
+    //dataType:'json'  jqueryä¼šè‡ªåŠ¨è¯†åˆ«   æ ¹æ® contentType: text/json
+    $.ajax({
+      type:'post',
+      url:"/employee/employeeLogin",
+      data: $("form").serialize(),
+      dataType:'json',
+      success:function (info) {
+
+        if(info.error === 1000) {
+          //æŠŠusernameè¿™ä¸ªå­—æ®µæ”¹æˆæ ¡éªŒå¤±è´¥
+          $("form").data("bootstrapValidator").updateStatus("username", "INVALID", "callback");
+        }
+
+        if(info.error === 1001) {
+          $("form").data("bootstrapValidator").updateStatus("password", "INVALID", "callback");
+        }
+
+        if(info.success) {
+          location.href = "index.html";
+        }
+      }
     })
 
-    //ÖØÖÃ±íµ¥£¬ Çå³ıËùÓĞµÄÑùÊ½
-    $("[type='reset']").on("click",function(){
-        $("form").data("bootstrapValidator").resetForm(true)
-    });
+
+
+
+
+
+
+  })
+
+
+  //3. é‡ç½®è¡¨å•ï¼Œ æ¸…é™¤æ‰€æœ‰çš„æ ·å¼
+  $("[type='reset']").on("click", function () {
+
+    $("form").data("bootstrapValidator").resetForm(true);
+
+  });
 
 });
