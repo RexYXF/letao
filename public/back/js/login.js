@@ -54,8 +54,34 @@
             validating: 'glyphicon glyphicon-refresh'
         }
     })
+    //表单验证成功,阻止表单默认提交方式,使用ajax认证提交
+    $('form').on("success.form.bv",function(e){
+        e.preventDefault();
 
+        //发送ajax请求登录
+        $.ajax({
+            type:'post',
+            url:'/employee/employeeLogin',
+            data:$('form').serialize(),
+            dataType:'json',
+            success:function(info){
+                //console.log(info);
+                if(info.error==1000){
+                    $('form').data('bootstrapValidator').updateStatus('username','INVALID','callback')
+                }
+                if(info.error === 1001) {
+                    $("form").data("bootstrapValidator").updateStatus("password", "INVALID", "callback");
+                }
+                if(info.success) {
+                    location.href = "index.html";
+                }
+            }
+        })
+    })
 
+    //重置表单， 清除所有的样式
+    $("[type='reset']").on("click",function(){
+        $("form").data("bootstrapValidator").resetForm(true)
+    });
 
-
-})();
+});
