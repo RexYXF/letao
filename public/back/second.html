@@ -71,7 +71,7 @@
         <th width="10%">序号</th>
         <th widht="30%">一级分类名称</th>
         <th width="30%">二级分类名称</th>
-        <th width="30%">一级分类LOGO</th>
+        <th width="30%">二级分类LOGO</th>
         </thead>
         <tbody>
         <!--挖个坑-->
@@ -113,7 +113,7 @@
 </div><!-- /.modal -->
 
 <!--添加分类的模态框-->
-<div class="modal fade" id="firstModal" tabindex="-1">
+<div class="modal fade" id="secondModal" tabindex="-1">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -126,16 +126,14 @@
             <!--下拉选项-->
             <div class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown">
-                请选择一级分类
+                <span class="dropdown_text">请选择一级分类</span>
                 <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+              <ul class="dropdown-menu">
+                <!--再挖个坑-->
               </ul>
+              <!--添加一个隐藏的input存categoryId-->
+              <input type="hidden" name="categoryId">
             </div>
           </div>
             <!--输入名称-->
@@ -144,7 +142,14 @@
           </div>
           <!--上传图片-->
           <div class="form-group">
-            <input type="file" >
+            <!--通过label与input关联实现弹出file功能-->
+            <label for="fileupload" class="btn btn-default">上传图片</label>
+            <!--fileupload插件-->
+            <input style="display: none" type="file" id="fileupload" name="files" data-url="/category/addSecondCategoryPic" multiple>
+          </div>
+          <!--图片预览-->
+          <div class="form-group img_box">
+            <img src="images/none.png" width="100" height="100" alt="">
           </div>
         </div>
         <div class="modal-footer">
@@ -156,8 +161,29 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!--列表模板-->
+<script type="text/html" id="tpl">
+  {{each rows v i}}
+  <tr>
+    <td>{{(page-1)*size+i+1}}</td>
+    <td>{{v.categoryName}}</td>
+    <td>{{v.brandName}}</td>
+    <td><img src="{{v.brandLogo?v.brandLogo:'images/none.png'}}" width="100" height="50"></td>
+  </tr>
+  {{/each}}
+</script>
+
+<!--下拉菜单模板-->
+<script type="text/html" id="tpl1">
+  {{each rows v i}}
+  <li><a data-id="{{v.id}}" href="javascript:;">{{v.categoryName}}</a></li>
+  {{/each}}
+</script>
+
 
 <script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/jquery-fileupload/jquery.ui.widget.js"></script>
+<script src="lib/jquery-fileupload/jquery.fileupload.js"></script>
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
 <script src="lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
