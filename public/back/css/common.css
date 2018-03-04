@@ -22,6 +22,10 @@ a, a:link, a:visited, a:hover, a:active {
   margin-top: 150px;
 }
 
+.mb_20 {
+  margin-bottom: 20px;
+}
+
 .lt_aside {
   width: 180px;
   height: 100%;
@@ -105,9 +109,14 @@ a, a:link, a:visited, a:hover, a:active {
   font-size: 16px;
 }
 
-
 .lt_content .charts_1,
 .lt_content .charts_2 {
   width: 45%;
   height: 400px;
+}
+
+.table.table-bordered th,
+.table.table-bordered td {
+  text-align: center;
+  vertical-align: middle;
 }
