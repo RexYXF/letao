@@ -49,6 +49,7 @@ $(function () {
     //让main的padding-left:0
     $(".lt_main").toggleClass("now");
 
+    $(".lt_header").toggleClass("now");
   });
 
 
