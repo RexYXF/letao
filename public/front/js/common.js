@@ -10,3 +10,23 @@ mui(".mui-scroll-wrapper").scroll({
 mui(".mui-slider").slider({
     interval:2000
 })
+
+//获得缓存记录
+function getStorage(){
+    var history=localStorage.getItem('search_list')||"[]";
+    arr= JSON.parse(history);
+    return arr
+}
+
+//获得地址栏的字段,并且封装成对象{name:"hucc",age:18, desc:"很帅"}
+function getUrlParam(param){
+    var url = decodeURI(location.search);
+    var urlParam = url.slice(1).split('&');
+    var obj={}
+    urlParam.forEach(function(element,index){
+        var k=element.split('=')[0];
+        var v=element.split('=')[1];
+        obj[k]=v;
+    })
+    return obj[param]
+}
