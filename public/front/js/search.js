@@ -30,6 +30,8 @@
         arr.unshift(value);
         localStorage.setItem('search_list',JSON.stringify(arr))
         render()
+        //页面跳转至详情页
+        location.href = "searchList.html?key="+value;
 
     })
 
