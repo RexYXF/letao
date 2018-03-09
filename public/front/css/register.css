@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.myForm {
+  padding: 10px;
+}
+input[name="vCode"] {
+  width: 65%;
+}
+.mui-btn.btn_getcode {
+  width: 30%;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  line-height: 40px;
+}
+.mui-btn.btn_register {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  line-height: 40px;
+}
+input[type="checkbox"] {
+  vertical-align: text-bottom;
+}
