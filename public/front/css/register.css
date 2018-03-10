@@ -23,3 +23,12 @@ input[name="vCode"] {
 input[type="checkbox"] {
   vertical-align: text-bottom;
 }
+.myForm .btn_getcode.disabled {
+  background-color: #999;
+  border-color: #999;
+}
+.myForm .tips {
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+}
